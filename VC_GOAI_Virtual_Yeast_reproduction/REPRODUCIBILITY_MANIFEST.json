@@ -202,13 +202,9 @@
       "sha256": "1b21d36b1dbea33a3c891fc2bc2c2f5b1f02bd6c5b06123402bcb5104dc6c5fc",
       "bytes": 454
     },
-    "prediction.csv": {
-      "sha256": "db113d3ecad727a560ebad69aa18667035ff8af059639881189be9c5cdcb8f0f",
-      "bytes": 192936163
-    },
     "README.md": {
-      "sha256": "436e0e44c92ddb5aa816d09bd2ba338a383cfea3669a819cff66313e45dbf12a",
-      "bytes": 8199
+      "sha256": "fb1c67e2db2370a35e2e387dda75f191092e5aee85880018c4f6c9bd94851705",
+      "bytes": 9046
     },
     "requirements.txt": {
       "sha256": "bd3d0e78a75216572e594f8eec00a60e915b5392eb2159041815a1ca37924316",
@@ -288,6 +284,7 @@
     }
   },
   "counts": {
-    "n_files": 52
-  }
+    "n_files": 51
+  },
+  "github_distribution_note": "prediction.csv (193MB) exceeds GitHub 100MB per-file limit and is NOT distributed via git. Obtain via: (a) official submission zip AI4R_AIVC_GOAI_Virtual_Yeast_代码材料.zip, (b) regenerate via train.py + predict.py (same hardware reproduces SHA db113d3ecad727a560ebad69aa18667035ff8af059639881189be9c5cdcb8f0f), or (c) Release v1.0-semifinal attachment. Allowed by submission instructions (\"stable download link + SHA256\")."
 }
