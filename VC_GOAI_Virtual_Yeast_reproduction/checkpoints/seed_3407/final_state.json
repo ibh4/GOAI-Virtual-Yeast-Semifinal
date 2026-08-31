@@ -1,0 +1,10 @@
+{
+  "seed": 3407,
+  "full_epochs": 40,
+  "best_loss": 0.18652703971626924,
+  "best_epoch": 40,
+  "checkpoint_rule": "best_by_train_loss",
+  "n_naninf": 0,
+  "elapsed_s": 1098.0,
+  "final_pt_sha256": "7f1ff8fb0b2f9bd0cf73e8552a2bea79076aa234ef93150a2bbefbe9885defab"
+}

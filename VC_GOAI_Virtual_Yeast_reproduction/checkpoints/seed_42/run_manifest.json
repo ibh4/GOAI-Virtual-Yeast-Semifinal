@@ -1,0 +1,11 @@
+{
+  "model_name": "ControlAnchoredLowRankModelV5B (C2-r256 + L2b FC loss)",
+  "seed": 42,
+  "fold": "full",
+  "epochs": 40,
+  "lambda_fc": 0.07,
+  "split_schema": "full_8958_no_loso",
+  "config_sha256": "db223bc05721ab7575819f4aeb82b0bf1e73aa55426deb7c1859794091b1e3ae",
+  "train_sample_id_sha256": "26365527a47a1a577b918e10a27f165f50fd3371235a36baadf6c738efb97301",
+  "output_absolute_path": "I:\\TRAE projects\\GOAI\\virtual_yeast\\artifacts\\model_v5\\V5-L2b-full-fixed\\seed_42"
+}

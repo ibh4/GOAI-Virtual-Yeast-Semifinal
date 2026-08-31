@@ -1,0 +1,30 @@
+{
+  "prediction_scale": "log2",
+  "rows": 4454,
+  "columns": 4423,
+  "model": "L2b (C2-r256 + lambda_fc=0.07), 3-seed (42/2026/3407) equal-weight full-data refit ensemble",
+  "champion_local_oof_proxy": 0.6771,
+  "ensemble_pred_sha256_5243": "df64c4b0269c948b22ff5af4b913c94deae81120d9a483457fc1eaf32a785c14",
+  "csv_sha256": "db113d3ecad727a560ebad69aa18667035ff8af059639881189be9c5cdcb8f0f",
+  "rule": "官方契约 4,422 列子集 (train-only 缺失率<80%), 值与 3-seed 等权集成逐位一致",
+  "used_test_labels": false,
+  "per_seed_pred_sha256": {
+    "42": "b8891409d92819afa5c36e8806f0daf76cd6edca58a4793009567805706ec50f",
+    "2026": "459d92dca4931fc7f85ae34b3f725d53e95eb15957469078bc8e8d6ff73abe5a",
+    "3407": "ed43601ab266b630a6f04492a471b988ff9e612b1d6313049667613a02c35c95"
+  },
+  "seed_diagnostics": {
+    "s42_vs_s2026": {
+      "pcc": 0.99881984360445,
+      "mae": 0.1144571527838707
+    },
+    "s42_vs_s3407": {
+      "pcc": 0.99897209774152,
+      "mae": 0.098255954682827
+    },
+    "s2026_vs_s3407": {
+      "pcc": 0.9988767192345811,
+      "mae": 0.10237913578748703
+    }
+  }
+}

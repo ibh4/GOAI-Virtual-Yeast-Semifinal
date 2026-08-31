@@ -1,0 +1,48 @@
+# 最终模型冻结配置 (L2b — C2-r256 + FC-PCC loss, 3-seed 等权集成)
+# 本文件为复现声明; 训练脚本中的常量与之一致, 二者同版本冻结。
+
+model:
+  name: ControlAnchoredLowRankModelV5B
+  variant: C2-r256 + L2b (lambda_fc FC-PCC loss alignment)
+  n_proteins: 5243            # 官方 train proteome 全部蛋白列
+  delta_rank: 256
+  control_pca_rank: 192
+  use_chem_fp: false           # 无外部特征
+  use_protein_prior: false     # 无外部特征
+
+data:
+  train_rows: 8958             # 官方 train_val 文件全部行 (train+val)
+  test_rows: 4454
+  log_transform: "log2(x) for finite x > 0; NaN preserved as mask"
+  imputation: train-only column medians (fill only, mask kept)
+  feature_contract_proteins: 4422   # train-only 缺失率 <80%, 官方列序
+  statistics_scope: "train_val rows only; 测试真值从不读取"
+
+training:
+  seeds: [42, 2026, 3407]
+  epochs: 40
+  batch_size: 24
+  lr: 3.0e-4
+  decoder_lr_ratio: 0.2
+  weight_decay: 1.0e-4
+  grad_clip: 1.0
+  lambda_fc: 0.07
+  fc_warmup_epochs: 5
+  loss: "masked_huber + 0.5*pearson_fc + 0.5*delta_mse(matched) + lambda_fc*warmup*L_fc"
+  checkpoint_rule: best_by_train_loss
+  shuffle_seed_per_epoch: "torch.manual_seed(seed + epoch)"
+
+ensemble:
+  rule: equal weight mean   # 预固定, 不做权重搜索
+  members: 3
+
+inference:
+  prediction_scale: log2
+  output_proteins: 4422      # 官方 feature contract 列
+  reads_test_proteome: false
+
+runtime:
+  device: cuda               # CPU 亦可运行 (较慢)
+  approx_gpu_mem_gb: 6
+  approx_train_time_per_seed_min: 7    # RTX 4060 实测约 400s
+  approx_predict_time_min: 2
