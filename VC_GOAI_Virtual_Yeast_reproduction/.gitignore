@@ -11,4 +11,7 @@ runs/
 # 比赛数据不入库 (自行放置到 input/)
 input/
 *.csv.gz
-!prediction.csv
+
+# prediction.csv 193MB 超 GitHub 100MB 单文件限制, 不入 git;
+# 获取方式见 README.md「prediction.csv 获取」 (SHA256 db113d3e…)
+prediction.csv

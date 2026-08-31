@@ -21,6 +21,21 @@ Control-anchored 低秩分解模型：control 分支 (菌株+上下文 → 对�
 训练目标将官方六模块评分中的 FC-PCC 转为可微损失 (λ=0.07)；
 最终预测 = 3 个随机种子的 full-data refit 等权平均。
 
+## 0.5 prediction.csv 获取 (GitHub 仓库专用说明)
+
+`prediction.csv` (193 MB) 超出 GitHub 单文件 100 MB 限制，**不随 git
+仓库分发**（官方提交说明允许「稳定下载链接 + SHA256」替代）。获取方式
+（三选一，结果与正式提交逐位一致）：
+
+1. **提交包**：官方提交附件 `AI4R_AIVC_GOAI_Virtual_Yeast_代码材料.zip`
+   内含完整 `prediction.csv`；
+2. **重新生成**（推荐，可直接验证一致性）：运行下方命令 2 训练 +
+   命令 3 推理，输出 SHA256 应等于
+   `db113d3ecad727a560ebad69aa18667035ff8af059639881189be9c5cdcb8f0f`
+   （同硬件逐位一致；跨硬件浮点级差异见「已知限制」）；
+3. **Release 附件**：本仓库 Release `v1.0-semifinal` 附带
+   `prediction.csv`（SHA256 同上，上传后可用）。
+
 ## 1. 环境要求
 
 - Python ≥ 3.10, PyTorch ≥ 2.0 (CUDA 可选，CPU 可运行但较慢)
