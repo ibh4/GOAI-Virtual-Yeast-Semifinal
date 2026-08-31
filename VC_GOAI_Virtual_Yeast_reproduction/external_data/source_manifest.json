@@ -1,0 +1,7 @@
+{
+  "external_data_used": false,
+  "statement": "最终模型 L2b (C2-r256 + FC-PCC loss) 不使用任何外部数据、embedding 或公开知识库。模型输入仅为官方提供的 metadata 与 train_val proteome (菌株/化合物/上下文编码 + log2 蛋白丰度)。开发过程中评估过的外部资源 (ChEMBL 37、Alliance ORTHOLOGY 9.1.0、Dryad HIP/HOP、STRING v12 嵌入、Morgan 指纹) 全部经门槛审计后未进入最终模型, 审计决策见 REPRODUCIBILITY_MANIFEST.json 的 negative_results 章节。",
+  "entries": [],
+  "embedding_files": [],
+  "note_build_embeddings": "scripts/build_embeddings.py 为显式 no-op, 无需执行。"
+}

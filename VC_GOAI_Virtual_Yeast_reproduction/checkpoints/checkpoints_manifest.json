@@ -1,0 +1,92 @@
+{
+  "seeds": [
+    42,
+    2026,
+    3407
+  ],
+  "ensemble_rule": "equal weight mean (pre-fixed)",
+  "checkpoint_rule": "best_by_train_loss",
+  "per_seed_sha256": {
+    "seed_42": {
+      "final.pt": "21fc2769b076ba2d15db02bede5bd770d580def841a21c6e70b3b5b1b1aed1d1",
+      "selected.pt": "42705af9c78734f8ed72b79afdfadc7f80ca99f33f434d52f74390a959c046f2",
+      "config": {
+        "model": "ControlAnchoredLowRankModelV5B (C2-r256 + L2b FC loss)",
+        "seed": 42,
+        "full_epochs": 40,
+        "delta_rank": 256,
+        "lambda_fc": 0.07,
+        "fc_warmup_epochs": 5,
+        "loss": "masked_huber + 0.5*pearson_fc + 0.5*delta_mse(matched) + lambda_fc*warmup*L_fc (per-sample masked FC-PCC)",
+        "eps_pcc": 1e-08,
+        "min_std_sq": 1e-12,
+        "min_proteins": 200,
+        "optimizer": "AdamW",
+        "lr": 0.0003,
+        "decoder_lr_ratio": 0.2,
+        "weight_decay": 0.0001,
+        "grad_clip": 1.0,
+        "batch_size": 24,
+        "checkpoint_rule": "best_by_train_loss (same as C2/L2b folds)",
+        "n_fit_samples": 8958,
+        "data_sample_id_sha256": "26365527a47a1a577b918e10a27f165f50fd3371235a36baadf6c738efb97301",
+        "split_schema": "full_8958_no_loso",
+        "used_test_labels": false
+      }
+    },
+    "seed_2026": {
+      "final.pt": "81e9e8e11f384cbcfffe887d47d36bdd65b62b44217b493174dc56aab4e71a6d",
+      "selected.pt": "accd1a31d3ac7ceb5ae3bd8f0e3cf6d30df5fbe04006120e429c5b3b1bfa7eaf",
+      "config": {
+        "model": "ControlAnchoredLowRankModelV5B (C2-r256 + L2b FC loss)",
+        "seed": 2026,
+        "full_epochs": 40,
+        "delta_rank": 256,
+        "lambda_fc": 0.07,
+        "fc_warmup_epochs": 5,
+        "loss": "masked_huber + 0.5*pearson_fc + 0.5*delta_mse(matched) + lambda_fc*warmup*L_fc (per-sample masked FC-PCC)",
+        "eps_pcc": 1e-08,
+        "min_std_sq": 1e-12,
+        "min_proteins": 200,
+        "optimizer": "AdamW",
+        "lr": 0.0003,
+        "decoder_lr_ratio": 0.2,
+        "weight_decay": 0.0001,
+        "grad_clip": 1.0,
+        "batch_size": 24,
+        "checkpoint_rule": "best_by_train_loss (same as C2/L2b folds)",
+        "n_fit_samples": 8958,
+        "data_sample_id_sha256": "26365527a47a1a577b918e10a27f165f50fd3371235a36baadf6c738efb97301",
+        "split_schema": "full_8958_no_loso",
+        "used_test_labels": false
+      }
+    },
+    "seed_3407": {
+      "final.pt": "7f1ff8fb0b2f9bd0cf73e8552a2bea79076aa234ef93150a2bbefbe9885defab",
+      "selected.pt": "c0de5e881ede8a22a89b5e72b023ec0e34b8ca2dae18050b337850e977e420b7",
+      "config": {
+        "model": "ControlAnchoredLowRankModelV5B (C2-r256 + L2b FC loss)",
+        "seed": 3407,
+        "full_epochs": 40,
+        "delta_rank": 256,
+        "lambda_fc": 0.07,
+        "fc_warmup_epochs": 5,
+        "loss": "masked_huber + 0.5*pearson_fc + 0.5*delta_mse(matched) + lambda_fc*warmup*L_fc (per-sample masked FC-PCC)",
+        "eps_pcc": 1e-08,
+        "min_std_sq": 1e-12,
+        "min_proteins": 200,
+        "optimizer": "AdamW",
+        "lr": 0.0003,
+        "decoder_lr_ratio": 0.2,
+        "weight_decay": 0.0001,
+        "grad_clip": 1.0,
+        "batch_size": 24,
+        "checkpoint_rule": "best_by_train_loss (same as C2/L2b folds)",
+        "n_fit_samples": 8958,
+        "data_sample_id_sha256": "26365527a47a1a577b918e10a27f165f50fd3371235a36baadf6c738efb97301",
+        "split_schema": "full_8958_no_loso",
+        "used_test_labels": false
+      }
+    }
+  }
+}

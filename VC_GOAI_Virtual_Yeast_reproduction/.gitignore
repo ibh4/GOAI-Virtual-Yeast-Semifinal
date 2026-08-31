@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# 运行产物
+runs/
+*.log
+
+# 比赛数据不入库 (自行放置到 input/)
+input/
+*.csv.gz
+!prediction.csv

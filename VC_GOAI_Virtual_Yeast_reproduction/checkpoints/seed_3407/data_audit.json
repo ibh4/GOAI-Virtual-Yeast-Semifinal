@@ -1,0 +1,27 @@
+{
+  "n_total": 8958,
+  "n_fit": 8958,
+  "split_final_counts": {
+    "train": 5920,
+    "val_strain_only": 1547,
+    "val_chem_only": 1065,
+    "val_both": 269,
+    "val_time": 157
+  },
+  "strain_counts": {
+    "BAI": 1816,
+    "BAH": 1801,
+    "DHY210": 1793,
+    "CEK": 1786,
+    "CGD": 1762
+  },
+  "n_compounds": 48,
+  "n_proteins": 5243,
+  "observed_valid_count": 34119772,
+  "sample_id_sha256": "26365527a47a1a577b918e10a27f165f50fd3371235a36baadf6c738efb97301",
+  "matrix_shape": [
+    8958,
+    5243
+  ],
+  "used_test_labels": false
+}

@@ -1,0 +1,23 @@
+{
+  "model": "ControlAnchoredLowRankModelV5B (C2-r256 + L2b FC loss)",
+  "seed": 2026,
+  "full_epochs": 40,
+  "delta_rank": 256,
+  "lambda_fc": 0.07,
+  "fc_warmup_epochs": 5,
+  "loss": "masked_huber + 0.5*pearson_fc + 0.5*delta_mse(matched) + lambda_fc*warmup*L_fc (per-sample masked FC-PCC)",
+  "eps_pcc": 1e-08,
+  "min_std_sq": 1e-12,
+  "min_proteins": 200,
+  "optimizer": "AdamW",
+  "lr": 0.0003,
+  "decoder_lr_ratio": 0.2,
+  "weight_decay": 0.0001,
+  "grad_clip": 1.0,
+  "batch_size": 24,
+  "checkpoint_rule": "best_by_train_loss (same as C2/L2b folds)",
+  "n_fit_samples": 8958,
+  "data_sample_id_sha256": "26365527a47a1a577b918e10a27f165f50fd3371235a36baadf6c738efb97301",
+  "split_schema": "full_8958_no_loso",
+  "used_test_labels": false
+}
