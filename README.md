@@ -67,13 +67,8 @@
 
 模型不直接用一个黑盒网络输出数千个蛋白，而是将细胞状态拆分为：
 
-$$
-\hat{y}
-=
-f_{\mathrm{control}}(\mathrm{strain},\mathrm{context})
-+
-W_{\Delta}z(\mathrm{compound},\mathrm{strain},t)
-$$
+<img width="2672" height="624" alt="Control_Anchored_Low_Rank_Formula" src="https://github.com/user-attachments/assets/83c6206e-c34b-42ff-ac90-03de7787b7e0" />
+
 
 * **Control 分支**预测菌株在对应培养条件下的基础蛋白状态；
 * **Delta 分支**预测化合物造成的低秩扰动；
@@ -87,16 +82,8 @@ $$
 
 复赛模型加入逐样本 masked FC-PCC 损失：
 
-$$
-L_{\mathrm{FC}}
-=
-\frac{1}{|\mathcal{V}|}
-\sum_{i\in\mathcal{V}}
-\left[
-1-\operatorname{corr}
-(\hat y_i-c_i,\ y_i-c_i)
-\right]
-$$
+<img width="2672" height="624" alt="L_FC_formula" src="https://github.com/user-attachments/assets/0ba10edb-67de-4e7a-b288-04f1f2534457" />
+
 
 最终采用 `λfc = 0.07` 和 5 epoch warmup，在不牺牲 absolute 模块的情况下，使 FC 平均提升 **+0.0105**。
 
