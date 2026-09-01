@@ -1,32 +1,155 @@
-# GOAI Virtual Yeast — 酵母扰动蛋白组响应预测
+# GOAI Virtual Yeast｜虚拟酵母扰动蛋白组预测
 
 <p align="center">
-  <b>GOAI 虚拟细胞方向复赛作品 · Control-Anchored 低秩分解 × 可微评分对齐 × 系统性外部数据审计</b><br>
-  把官方六模块评分变成可微损失，用 oracle 审计证明剩余缺口属于科学问题而非工程。
+  <b>从初赛可信低秩基线，到复赛评分对齐与多 seed 稳健集成</b><br>
+  给定化合物、菌株、时间与培养条件，预测酵母全蛋白组响应。
 </p>
 
 <p align="center">
-  <img alt="Track" src="https://img.shields.io/badge/Track-虚拟细胞%20AIVC-0F4C81?style=for-the-badge">
-  <img alt="Model" src="https://img.shields.io/badge/Model-L2b%20(C2--r256%20%2B%20FC--PCC)-0E7C7B?style=for-the-badge">
-  <img alt="Score" src="https://img.shields.io/badge/OOF%20Proxy-0.6771-22C55E?style=for-the-badge">
-  <img alt="Seeds" src="https://img.shields.io/badge/Ensemble-3%20seed%20等权-8B5CF6?style=for-the-badge">
-  <img alt="External Data" src="https://img.shields.io/badge/外部数据依赖-零-F59E0B?style=for-the-badge">
-  <img alt="License" src="https://img.shields.io/badge/License-MIT-64748B?style=for-the-badge">
+  <img alt="Competition" src="https://img.shields.io/badge/Competition-GOAI%20AI%20for%20Research-7C3AED?style=for-the-badge">
+  <img alt="Stage" src="https://img.shields.io/badge/Stage-复赛-0F4C81?style=for-the-badge">
+  <img alt="Track" src="https://img.shields.io/badge/Track-Virtual%20Cell-06B6D4?style=for-the-badge">
+  <img alt="Model" src="https://img.shields.io/badge/Model-L2b%20Low--Rank-2563EB?style=for-the-badge">
+  <img alt="Score" src="https://img.shields.io/badge/Local%20OOF-0.6771-22C55E?style=for-the-badge">
 </p>
 
-***
+<p align="center">
+  <img alt="Robustness" src="https://img.shields.io/badge/Paired%20Improvement-12%2F12-14B8A6?style=flat-square">
+  <img alt="Ensemble" src="https://img.shields.io/badge/Ensemble-3%20Seeds-8B5CF6?style=flat-square">
+  <img alt="Test Labels" src="https://img.shields.io/badge/Test%20Labels-Never%20Loaded-EF4444?style=flat-square">
+  <img alt="External Data" src="https://img.shields.io/badge/Final%20External%20Dependency-None-F59E0B?style=flat-square">
+  <img alt="License" src="https://img.shields.io/badge/License-MIT-64748B?style=flat-square">
+</p>
 
-## 0. 项目一句话
+<p align="center">
+  <img width="100%" alt="GOAI 虚拟酵母复赛项目总览" src="https://github.com/user-attachments/assets/6190876a-3507-43da-86c9-964c4012b5dc">
+</p>
 
-**GOAI Virtual Yeast** 是面向虚拟细胞赛道的酵母扰动蛋白组响应预测项目：给定扰动条件（化合物 × 菌株 × 时间），预测 4,454 个测试样本的 4,422 个蛋白 log2 丰度。核心模型 **L2b** 将预测分解为「对照丰度 + 低秩扰动残差」，并把官方评分中的逐样本 FC-PCC 指标直接转化为可微损失（λ=0.07），本地 OOF proxy 从 0.6698 提升至 **0.6771**（12/12 seed×fold 配对全部正向）。
-<img width="1672" height="941" alt="ChatGPT Image 2026年9月1日 15_29_57" src="https://github.com/user-attachments/assets/6190876a-3507-43da-86c9-964c4012b5dc" />
+---
 
+## 项目一句话
 
-这个项目的目标不是堆外部特征，而是回答三个科学问题：**评分对齐能带来多少增益、交叉验证的索引完整性如何保证、公开外部数据的真实信息上限在哪里**。我们对 8 个外部数据方向执行了带严格负对照的统一审计，全部冻结为负结果，并用 oracle 上限审计给出机制解释——decoder 子空间可支撑 0.81，瓶颈在「化合物 → 扰动响应」的映射本身。
+**GOAI Virtual Yeast** 是一个面向 GOAI「前沿探索 AI for Research」虚拟细胞赛道的酵母扰动蛋白组响应预测项目。
 
-> 仓库定位：**复赛代码材料 + 端到端复现包 + 8 方向负结果审计链**。正式提交版本将冻结为 Release tag。
+模型根据**化合物 × 菌株 × 时间 × 培养上下文**，预测 4,454 个测试样本的蛋白质组 log2 丰度。模型内部学习完整的 **5,243 维蛋白空间**，正式提交输出 **4,422 个官方契约蛋白**。
 
-***
+核心模型 **L2b** 将细胞响应分解为：
+
+> **预测蛋白组 = 对照状态 + 低秩扰动响应**
+
+在此基础上，我们把官方评分中的逐样本 **FC-PCC** 指标转化为可微训练损失，使训练目标直接对齐评测目标。本地四折三 seed OOF proxy 从 **0.6698 提升至 0.6771**，12 个 seed×fold 配对结果全部提升。
+
+> `0.6771` 为本地 OOF 六模块 proxy，不是官方测试集成绩。
+
+---
+
+## 从初赛到复赛：模型如何完成升级
+
+| 阶段   | 初赛：可信低秩基线                    | 复赛：L2b 评分对齐模型               |
+| ---- | ---------------------------- | --------------------------- |
+| 核心目标 | 建立无测试泄漏的高维蛋白预测体系             | 提升评分一致性与跨随机种子稳定性            |
+| 模型结构 | Control-Anchored Low-Rank V5 | C2-r256 + 可微 FC-PCC         |
+| 蛋白空间 | 内部预测 5,243 维                 | 内部 5,243 维，提交 4,422 契约列     |
+| 扰动建模 | 对照状态 + Delta-PCA 低秩残差        | 保留低秩结构，直接优化 FC 方向相关性        |
+| 验证方式 | 4 折 LOSO 菌株外推                | V2 四折 × 3 seed + V3 化合物分组五折 |
+| 数据治理 | NaN-aware、测试标签硬隔离            | 修复索引错位、重训全部受影响实验            |
+| 集成策略 | 单模型/基础集成                     | seed 42、2026、3407 等权集成      |
+| 本地结果 | C2 基线 0.6698                 | **L2b 0.6771，提升 +0.0073**   |
+| 稳健性  | 建立可用基线                       | **12/12 配对提升，FC +0.0105**   |
+
+初赛解决的是“**能否可信地预测**”；复赛进一步解决的是“**如何让模型直接学习官方真正关心的扰动方向，并证明增益不是随机波动**”。
+
+---
+
+## 复赛的三项核心升级
+
+### 1. 从绝对丰度预测升级为生物过程分解
+
+模型不直接用一个黑盒网络输出数千个蛋白，而是将细胞状态拆分为：
+
+$$
+\hat{y}
+=
+f_{\mathrm{control}}(\mathrm{strain},\mathrm{context})
++
+W_{\Delta}z(\mathrm{compound},\mathrm{strain},t)
+$$
+
+* **Control 分支**预测菌株在对应培养条件下的基础蛋白状态；
+* **Delta 分支**预测化合物造成的低秩扰动；
+* Delta-PCA 在 treatment − matched control 上拟合，使模型聚焦真正的扰动响应。
+
+这种结构更符合生物实验逻辑，也降低了“小样本预测数千蛋白”带来的过拟合风险。
+
+### 2. 从训练后评分升级为可微评分对齐
+
+官方 FC 模块关注预测扰动方向与真实扰动方向的相关性，而普通 MSE 更关注逐点数值误差，两者并不完全一致。
+
+复赛模型加入逐样本 masked FC-PCC 损失：
+
+$$
+L_{\mathrm{FC}}
+=
+\frac{1}{|\mathcal{V}|}
+\sum_{i\in\mathcal{V}}
+\left[
+1-\operatorname{corr}
+(\hat y_i-c_i,\ y_i-c_i)
+\right]
+$$
+
+最终采用 `λfc = 0.07` 和 5 epoch warmup，在不牺牲 absolute 模块的情况下，使 FC 平均提升 **+0.0105**。
+
+### 3. 从单次高分升级为可审计的稳健结果
+
+复赛不依赖单个随机种子或单个验证折：
+
+* 3 个随机种子：42、2026、3407；
+* 4 个 LOSO folds；
+* 共 12 个严格同 seed 配对单元；
+* **12/12 proxy 全部提升**；
+* 三 seed 等权融合，不搜索测试权重；
+* checkpoint 仅按训练损失选择，不使用验证分数挑选 epoch。
+
+最终结果不是一次偶然高分，而是跨 fold、跨 seed 一致的稳定改进。
+
+---
+
+## 核心结果
+
+| 指标                     |  C2 基线 |                      复赛 L2b |           改进 |
+| ---------------------- | -----: | --------------------------: | -----------: |
+| 本地 V2 三 seed OOF proxy | 0.6698 |                  **0.6771** |  **+0.0073** |
+| 配对提升单元                 |      — |                 **12 / 12** |         全部正向 |
+| FC 模块                  |      — |                           — |  **+0.0105** |
+| 单 seed Δproxy          |      — | +0.0081 / +0.0080 / +0.0067 | 无明显 seed 敏感性 |
+| 三 seed 测试预测 PCC        |      — |               0.9988–0.9990 |         高一致性 |
+
+我们的主要优势并不是堆叠更多外部特征，而是：
+
+1. **结构合理**：用“对照状态 + 扰动残差”表达细胞响应；
+2. **目标一致**：训练损失直接对齐官方 FC 评分；
+3. **结果稳健**：12/12 配对提升，三 seed 一致；
+4. **数据可信**：测试标签从加载层硬隔离；
+5. **完整可复现**：配置、数据索引、预测与 checkpoint 均有 SHA256 审计。
+
+---
+
+## 科学审计：为什么最终模型没有继续堆外部数据
+
+复赛阶段，我们系统审计了 ChEMBL 靶点、Alliance 同源映射、STRING 网络与序列嵌入、Dryad HIP/HOP、分子结构、latent teacher 和场景校准等 8 个方向。
+
+所有实验均采用统一标准：
+
+> **预注册晋级门槛 → shuffle/截距/零特征对照 → 独立重初始化 → 配对统计检验 → 不通过立即冻结**
+
+部分外部数据确实包含统计信号，但覆盖不足或无法稳定迁移到本任务；强行接入反而造成过拟合。因此最终提交保持**零外部数据依赖**。
+
+这不是简单的“没有使用外部数据”，而是经过系统验证后选择了信息密度更高、证据更可靠的模型路径。
+
+---
+
+> **仓库定位：初赛低秩基线 + 复赛评分对齐模型 + 双验证协议 + 三 seed 完整复现 + 外部数据负结果审计链。**
 
 ## 1. 关键信息速查
 
