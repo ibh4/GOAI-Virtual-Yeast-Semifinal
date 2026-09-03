@@ -347,7 +347,7 @@ python scripts/validate_submission.py --prediction prediction.csv \
 
 | 方式             | 说明                                                    |
 | -------------- | ----------------------------------------------------- |
-| **提交包**        | 官方提交附件 `AI4R_AIVC_GOAI_Virtual_Yeast_代码材料.zip` 内含完整文件 |
+| **提交包**        | 官方提交附件 `AI4R_AIVC_幽默彭博士_虚拟酵母低秩蛋白组响应预测_代码材料.zip` 内含完整文件 |
 | **重新生成**（推荐）   | 运行 §5 命令 2 + 3，输出 SHA256 应等于下表值（同硬件逐位一致）              |
 | **Release 附件** | 本仓库 Release `v1.0-semifinal` 附带（上传后可用）                |
 
